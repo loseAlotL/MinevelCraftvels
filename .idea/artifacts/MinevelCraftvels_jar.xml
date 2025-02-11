@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MinevelCraftvels:jar">
+    <output-path>$PROJECT_DIR$/../../Marvel Rivals Test Server/plugins</output-path>
+    <root id="archive" name="MinevelCraftvels.jar">
+      <element id="module-output" name="MinevelCraftvels" />
+    </root>
+  </artifact>
+</component>

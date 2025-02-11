@@ -1,0 +1,8 @@
+name: MinevelCraftvels
+version: '${project.version}'
+main: org.randomlima.minevelcraftvels.MinevelCraftvels
+api-version: '1.21'
+commands:
+  setcharacter:
+    description: Set your character tag.
+    usage: /setcharacter <characterName>
