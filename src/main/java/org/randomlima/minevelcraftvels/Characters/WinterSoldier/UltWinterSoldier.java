@@ -1,6 +1,5 @@
 package org.randomlima.minevelcraftvels.Characters.WinterSoldier;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -16,20 +15,24 @@ import org.bukkit.util.Vector;
 import org.randomlima.minevelcraftvels.Characters.CharacterManager;
 import org.randomlima.minevelcraftvels.Characters.Characters;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
+import org.randomlima.minevelcraftvels.Utils.NametagManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UltWinterSoldier implements Listener {
 
     private final MinevelCraftvels minevelCraftvels;
     private CharacterManager characterManager;
+    private NametagManager nametagManager;
     private List<Player> ultPlayers = new ArrayList<>();
     private List<Player> airPlayers = new ArrayList<>();
 
     public UltWinterSoldier(MinevelCraftvels plugin){
         minevelCraftvels = plugin;
         characterManager = new CharacterManager(minevelCraftvels);
+        nametagManager = new NametagManager(minevelCraftvels);
     }
 
     @EventHandler
@@ -87,6 +90,8 @@ public class UltWinterSoldier implements Listener {
         for (Entity entity : player.getLocation().getNearbyEntities(5.0, 5.0, 5.0)) {
             if (entity instanceof LivingEntity && entity != player) {
                 LivingEntity target = (LivingEntity) entity;
+                List<String> lines = Arrays.asList("&l&6[⚔]");
+                nametagManager.setNametag(target, lines, 1);
                 target.damage(10.0);
             }
         }

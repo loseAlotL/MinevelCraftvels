@@ -16,7 +16,7 @@ public class SetCharacterTabComplete implements TabCompleter {
 
         if (sender instanceof Player && args.length == 1) {
             String input = args[0].toLowerCase();
-
+            suggestions.add("none");
             for (Characters character : Characters.values()) {
                 if (character.name().toLowerCase().startsWith(input)) {
                     suggestions.add(character.name().toLowerCase());

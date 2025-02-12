@@ -31,4 +31,12 @@ public class CharacterManager {
         return container.has(CHARACTER_KEY, PersistentDataType.STRING) &&
                 container.get(CHARACTER_KEY, PersistentDataType.STRING).equals(character.name());
     }
+    public boolean hasTag(Player player){
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        return container.has(CHARACTER_KEY, PersistentDataType.STRING);
+    }
+    public String getName(Player player){
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        return container.get(CHARACTER_KEY, PersistentDataType.STRING);
+    }
 }

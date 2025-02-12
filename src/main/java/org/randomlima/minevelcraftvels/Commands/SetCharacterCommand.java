@@ -32,6 +32,10 @@ public class SetCharacterCommand implements CommandExecutor {
         }
 
         try {
+            if(args[0].equals("none")){
+                characterManager.clearCharacterTag(player);
+                return true;
+            }
             Characters character = Characters.valueOf(args[0].toUpperCase());
             characterManager.setCharacterTag(player, character);
             return true;
