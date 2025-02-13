@@ -1,6 +1,6 @@
 package org.randomlima.minevelcraftvels.Abilities;
 
-import org.randomlima.minevelcraftvels.Characters.WinterSoldier.WinterSoldierHandler;
+import org.randomlima.minevelcraftvels.Characters.WinterSoldier.HandlerWinterSoldier;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class AbilityManager {
     }
 
     private void registerAbilities() {
-        abilityHandlers.put("WINTER_SOLDIER", new WinterSoldierHandler(minevelCraftvels));
+        abilityHandlers.put("WINTER_SOLDIER", new HandlerWinterSoldier(minevelCraftvels));
         // Add more characters...
     }
 

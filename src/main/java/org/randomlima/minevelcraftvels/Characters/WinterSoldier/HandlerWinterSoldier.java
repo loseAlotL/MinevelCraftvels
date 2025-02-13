@@ -6,14 +6,14 @@ import org.randomlima.minevelcraftvels.Abilities.AbilityList;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
 import org.randomlima.minevelcraftvels.Utils.Colorize;
 
-public class WinterSoldierHandler implements AbilityHandler {
+public class HandlerWinterSoldier implements AbilityHandler {
     private final MinevelCraftvels minevelCraftvels;
     private WinterSoldierPrimary winterSoldierPrimary;
     private WinterSoldierRightClick winterSoldierRightClick;
     private  WinterSoldierShift winterSoldierShift;
     private WinterSoldierE winterSoldierE;
     private WinterSoldierUltimate winterSoldierUltimate;
-    public WinterSoldierHandler(MinevelCraftvels plugin){
+    public HandlerWinterSoldier(MinevelCraftvels plugin){
         minevelCraftvels = plugin;
         winterSoldierPrimary = new WinterSoldierPrimary(minevelCraftvels);
         winterSoldierRightClick = new WinterSoldierRightClick(minevelCraftvels);
