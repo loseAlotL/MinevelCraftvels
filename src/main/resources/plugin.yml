@@ -6,3 +6,9 @@ commands:
   setcharacter:
     description: Set your character tag.
     usage: /setcharacter <characterName>
+  heal:
+    description: heal
+    usage: /heal <amount>
+  damage:
+    description: damage
+    usage: /damage <amount>

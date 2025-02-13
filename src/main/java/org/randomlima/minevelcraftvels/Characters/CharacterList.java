@@ -1,9 +1,10 @@
 package org.randomlima.minevelcraftvels.Characters;
 
-public enum Characters {
+public enum CharacterList {
     ADAM_WARLOCK,
     BLACK_PANTHER,
     BLACK_WIDOW,
+    BRUCE_BANNER,
     CAPTAIN_AMERICA,
     CLOAK_AND_DAGGER,
     DOCTOR_STRANGE,
@@ -11,6 +12,7 @@ public enum Characters {
     HAWKEYE,
     HELA,
     HULK,
+    HULK_MONSTER,
     INVISIBLE_WOMAN,
     IRON_FIST,
     IRON_MAN,
@@ -36,5 +38,4 @@ public enum Characters {
     VENOM,
     WINTER_SOLDIER,
     WOLVERINE;
-
 }

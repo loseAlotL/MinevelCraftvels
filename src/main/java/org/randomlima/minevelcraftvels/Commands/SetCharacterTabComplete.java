@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.randomlima.minevelcraftvels.Characters.Characters;
+import org.randomlima.minevelcraftvels.Characters.CharacterList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +17,12 @@ public class SetCharacterTabComplete implements TabCompleter {
         if (sender instanceof Player && args.length == 1) {
             String input = args[0].toLowerCase();
             suggestions.add("none");
-            for (Characters character : Characters.values()) {
+            for (CharacterList character : CharacterList.values()) {
                 if (character.name().toLowerCase().startsWith(input)) {
                     suggestions.add(character.name().toLowerCase());
                 }
             }
         }
-
         return suggestions;
     }
 }

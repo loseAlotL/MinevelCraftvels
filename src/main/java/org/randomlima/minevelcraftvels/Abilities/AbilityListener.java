@@ -1,20 +1,16 @@
 package org.randomlima.minevelcraftvels.Abilities;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.randomlima.minevelcraftvels.Characters.CharacterManager;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
 import org.randomlima.minevelcraftvels.Utils.Colorize;
-import org.randomlima.minevelcraftvels.Utils.NametagManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +29,7 @@ public class AbilityListener implements Listener {
         player.setAllowFlight(false);
         if(!characterManager.hasTag(player))return;
         player.setAllowFlight(true);
+        player.sendActionBar();
     }
     @EventHandler
     public void onPlayerUlt(PlayerDropItemEvent event) {
@@ -50,13 +47,11 @@ public class AbilityListener implements Listener {
         }.runTaskLater(minevelCraftvels, 2);
     }
 //    @EventHandler
-//    public void onPlayerE(Pla event) {
+//    public void onPlayerE(InventoryOpenEvent  event) {
 //        System.out.println("eeeee");
-//        Player player = event.getPlayer();
+//        Player player = (Player) event.getPlayer();
 //        if(!characterManager.hasTag(player))return;
-//        if (player.getOpenInventory().getTopInventory().getType() != InventoryType.CRAFTING)return;
 //        player.sendMessage(Colorize.format(characterManager.getName(player) + " has used E"));
-//        event.setCancelled(true);
 //    }
     @EventHandler
     public void onPlayerF(PlayerSwapHandItemsEvent event) {
@@ -102,7 +97,6 @@ public class AbilityListener implements Listener {
         Vector direction = player.getLocation().getDirection().multiply(0.9);
         direction.setY(0.5);
         player.setVelocity(direction);
-
     }
     @EventHandler
     public void onPlayerPrimary(PlayerInteractEvent event) {

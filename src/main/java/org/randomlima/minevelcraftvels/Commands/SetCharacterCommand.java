@@ -1,11 +1,15 @@
 package org.randomlima.minevelcraftvels.Commands;
 
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.randomlima.minevelcraftvels.Characters.Character;
 import org.randomlima.minevelcraftvels.Characters.CharacterManager;
-import org.randomlima.minevelcraftvels.Characters.Characters;
+import org.randomlima.minevelcraftvels.Characters.CharacterList;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
 
 public class SetCharacterCommand implements CommandExecutor {
@@ -36,8 +40,9 @@ public class SetCharacterCommand implements CommandExecutor {
                 characterManager.clearCharacterTag(player);
                 return true;
             }
-            Characters character = Characters.valueOf(args[0].toUpperCase());
+            CharacterList character = CharacterList.valueOf(args[0].toUpperCase());
             characterManager.setCharacterTag(player, character);
+            Character guy = new Character(player, CharacterList.valueOf(args[0].toUpperCase()), minevelCraftvels);
             return true;
 
         } catch (IllegalArgumentException e) {

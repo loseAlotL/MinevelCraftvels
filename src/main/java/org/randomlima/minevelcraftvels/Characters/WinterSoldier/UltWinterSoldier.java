@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.randomlima.minevelcraftvels.Characters.CharacterManager;
-import org.randomlima.minevelcraftvels.Characters.Characters;
+import org.randomlima.minevelcraftvels.Characters.CharacterList;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
 import org.randomlima.minevelcraftvels.Utils.NametagManager;
 
@@ -38,7 +38,7 @@ public class UltWinterSoldier implements Listener {
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        if(characterManager.hasCharacterTag(player, Characters.WINTER_SOLDIER)) {
+        if(characterManager.hasCharacterTag(player, CharacterList.WINTER_SOLDIER)) {
             event.setCancelled(true);
             launchPlayer(player);
             if(ultPlayers.contains(player)){
