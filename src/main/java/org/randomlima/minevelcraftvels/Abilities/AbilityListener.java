@@ -17,11 +17,23 @@ import java.util.List;
 
 public class AbilityListener implements Listener {
     private final MinevelCraftvels minevelCraftvels;
+    private final AbilityManager abilityManager;
     private final CharacterManager characterManager;
     private List<Player> dropTickList = new ArrayList<>();
     public AbilityListener(MinevelCraftvels plugin){
         minevelCraftvels = plugin;
+        abilityManager = new AbilityManager(plugin);
         characterManager = new CharacterManager(plugin);
+    }
+    private void triggerAbility(Player player, AbilityList ability) {
+        if (!characterManager.hasTag(player)) return;
+
+        String characterName = characterManager.getName(player);
+        AbilityHandler handler = abilityManager.getHandler(characterName);
+
+        if (handler != null) {
+            handler.onUse(player, ability);
+        }
     }
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -45,20 +57,17 @@ public class AbilityListener implements Listener {
                 dropTickList.remove(player);
             }
         }.runTaskLater(minevelCraftvels, 2);
+
+        triggerAbility(player, AbilityList.ULTIMATE);
     }
-//    @EventHandler
-//    public void onPlayerE(InventoryOpenEvent  event) {
-//        System.out.println("eeeee");
-//        Player player = (Player) event.getPlayer();
-//        if(!characterManager.hasTag(player))return;
-//        player.sendMessage(Colorize.format(characterManager.getName(player) + " has used E"));
-//    }
     @EventHandler
     public void onPlayerF(PlayerSwapHandItemsEvent event) {
         Player player = event.getPlayer();
         if(!characterManager.hasTag(player))return;
         player.sendMessage(Colorize.format(characterManager.getName(player) + " has used F"));
         event.setCancelled(true);
+
+        triggerAbility(player, AbilityList.F);
     }
 
     @EventHandler
@@ -68,6 +77,8 @@ public class AbilityListener implements Listener {
         if(!event.isSneaking())return;
         player.sendMessage(Colorize.format(characterManager.getName(player) + " has used SHIFT"));
         event.setCancelled(true);
+
+        triggerAbility(player, AbilityList.SHIFT);
     }
     @EventHandler
     public void onPlayerSprint(PlayerToggleSprintEvent event) {
@@ -76,6 +87,8 @@ public class AbilityListener implements Listener {
         if(!characterManager.hasTag(player))return;
         player.sendMessage(Colorize.format(characterManager.getName(player) + " has used CTRL"));
         event.setCancelled(true);
+
+        triggerAbility(player, AbilityList.CTRL);
     }
     @EventHandler
     public void onPlayerJump(PlayerJumpEvent event) {
@@ -83,6 +96,7 @@ public class AbilityListener implements Listener {
         if(!characterManager.hasTag(player))return;
         player.sendMessage(Colorize.format(characterManager.getName(player) + " has used JUMP"));
 
+        triggerAbility(player, AbilityList.SPACE);
     }
     @EventHandler
     public void onFlightAttempt(PlayerToggleFlightEvent event) {
@@ -97,6 +111,8 @@ public class AbilityListener implements Listener {
         Vector direction = player.getLocation().getDirection().multiply(0.9);
         direction.setY(0.5);
         player.setVelocity(direction);
+
+        triggerAbility(player, AbilityList.DOUBLE_JUMP);
     }
     @EventHandler
     public void onPlayerPrimary(PlayerInteractEvent event) {
@@ -106,6 +122,8 @@ public class AbilityListener implements Listener {
         if(dropTickList.contains(player))return;
         player.sendMessage(Colorize.format(characterManager.getName(player) + " has used PRIMARY"));
         event.setCancelled(true);
+
+        triggerAbility(player, AbilityList.PRIMARY);
     }
     @EventHandler
     public void onPlayerRightClick(PlayerInteractEvent event) {
@@ -114,6 +132,17 @@ public class AbilityListener implements Listener {
         if(!event.getAction().isRightClick())return;
         player.sendMessage(Colorize.format(characterManager.getName(player) + " has used RIGHT-CLICK"));
         event.setCancelled(true);
-    }
 
+        triggerAbility(player, AbilityList.RIGHT_CLICK);
+    }
+    @EventHandler
+    public void onPlayerE(PlayerItemHeldEvent event) {
+        Player player = event.getPlayer();
+        if(!characterManager.hasTag(player))return;
+        if(event.getNewSlot() != 8)return;
+        player.getInventory().setHeldItemSlot(0);
+        player.sendMessage(Colorize.format(characterManager.getName(player) + " has used E"));
+
+        triggerAbility(player, AbilityList.E);
+    }
 }

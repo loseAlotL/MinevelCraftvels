@@ -1,11 +1,5 @@
 package org.randomlima.minevelcraftvels.Characters;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.title.TitlePart;
-import org.bukkit.Color;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
 import org.randomlima.minevelcraftvels.Utils.Colorize;
@@ -56,13 +50,13 @@ public class Character {
     }
     public void updateHealth(){
         alive = health > 0;
+        if(health <= 0){
+            player.damage(Integer.MAX_VALUE);
+            return;
+        }
         float hp = (float) health / maxHealth;
         hp = Math.min(hp, 1.0f);
-        player.sendMessage("health - "+health);
-        player.sendMessage("max - "+maxHealth);
-        player.sendMessage("percent - "+hp);
 
         player.setExp(hp);
-        if(!alive)player.damage(Integer.MAX_VALUE);
     }
 }

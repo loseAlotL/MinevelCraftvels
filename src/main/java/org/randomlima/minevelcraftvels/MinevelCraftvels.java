@@ -1,12 +1,8 @@
 package org.randomlima.minevelcraftvels;
 
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.randomlima.minevelcraftvels.Abilities.AbilityListener;
-import org.randomlima.minevelcraftvels.Characters.WinterSoldier.UltWinterSoldier;
+import org.randomlima.minevelcraftvels.Characters.WinterSoldier.WinterSoldierUltimate;
 import org.randomlima.minevelcraftvels.Commands.DamageCommand;
 import org.randomlima.minevelcraftvels.Commands.HealCommand;
 import org.randomlima.minevelcraftvels.Commands.SetCharacterCommand;
@@ -21,7 +17,7 @@ public final class MinevelCraftvels extends JavaPlugin {
         // Plugin startup logic
         this.nametagManager = new NametagManager(this);
 
-        getServer().getPluginManager().registerEvents(new UltWinterSoldier(this), this);
+        getServer().getPluginManager().registerEvents(new WinterSoldierUltimate(this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
 
         this.getCommand("setcharacter").setExecutor(new SetCharacterCommand(this));
