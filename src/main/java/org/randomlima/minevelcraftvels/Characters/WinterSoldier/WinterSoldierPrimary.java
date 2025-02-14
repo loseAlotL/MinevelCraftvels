@@ -15,6 +15,7 @@ public class WinterSoldierPrimary {
         characterManager = new CharacterManager(plugin);
     }
     public void use(Player player){
+        player.playSound(player.getLocation(), "wintersoldier.primary", 100, 1);
         player.sendMessage(Colorize.format("&6Used Primary -"));
     }
 }

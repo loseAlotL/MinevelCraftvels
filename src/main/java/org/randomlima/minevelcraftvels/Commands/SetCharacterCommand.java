@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.randomlima.minevelcraftvels.Characters.Character;
+import org.randomlima.minevelcraftvels.Characters.CharacterInterface;
 import org.randomlima.minevelcraftvels.Characters.CharacterManager;
 import org.randomlima.minevelcraftvels.Characters.CharacterList;
 import org.randomlima.minevelcraftvels.MinevelCraftvels;
@@ -40,6 +41,15 @@ public class SetCharacterCommand implements CommandExecutor {
                 characterManager.clearCharacterTag(player);
                 return true;
             }
+            CharacterList characterList = CharacterList.valueOf(args[0].toUpperCase());
+
+            // Get the corresponding ICharacter implementation
+            CharacterInterface character = characterList.getCharacterClass();
+
+            // Clear and set inventory for the player
+            character.clearInventory(player);
+            character.setInventory(player);
+
             CharacterList character = CharacterList.valueOf(args[0].toUpperCase());
             characterManager.setCharacterTag(player, character);
             Character guy = new Character(player, CharacterList.valueOf(args[0].toUpperCase()), minevelCraftvels);

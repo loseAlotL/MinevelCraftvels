@@ -13,6 +13,7 @@ public class WinterSoldierRightClick {
         characterManager = new CharacterManager(plugin);
     }
     public void use(Player player){
+        player.playSound(player.getLocation(), "wintersoldier.grab", 2, 1);
         player.sendMessage(Colorize.format("&6Used Right-Click -"));
     }
 }

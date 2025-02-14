@@ -13,6 +13,7 @@ public class WinterSoldierE {
         characterManager = new CharacterManager(plugin);
     }
     public void use(Player player){
+        player.playSound(player.getLocation(), "wintersoldier.goku", 100, 1);
         player.sendMessage(Colorize.format("&6Used E -"));
     }
 }

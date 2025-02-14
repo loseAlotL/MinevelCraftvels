@@ -13,6 +13,7 @@ public class WinterSoldierShift {
         characterManager = new CharacterManager(plugin);
     }
     public void use(Player player){
+        player.playSound(player.getLocation(), "wintersoldier.uppercut", 2, 1);
         player.sendMessage(Colorize.format("&6Used Shift -"));
     }
 }
