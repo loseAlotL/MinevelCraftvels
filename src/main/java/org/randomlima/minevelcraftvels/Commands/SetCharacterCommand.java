@@ -41,16 +41,12 @@ public class SetCharacterCommand implements CommandExecutor {
                 characterManager.clearCharacterTag(player);
                 return true;
             }
-            CharacterList characterList = CharacterList.valueOf(args[0].toUpperCase());
-
-            // Get the corresponding ICharacter implementation
-            CharacterInterface character = characterList.getCharacterClass();
-
-            // Clear and set inventory for the player
-            character.clearInventory(player);
-            character.setInventory(player);
-
             CharacterList character = CharacterList.valueOf(args[0].toUpperCase());
+            CharacterInterface cInterface = character.getCharacterClass();
+
+            cInterface.clearInventory(player);
+            cInterface.setInventory(player);
+
             characterManager.setCharacterTag(player, character);
             Character guy = new Character(player, CharacterList.valueOf(args[0].toUpperCase()), minevelCraftvels);
             return true;

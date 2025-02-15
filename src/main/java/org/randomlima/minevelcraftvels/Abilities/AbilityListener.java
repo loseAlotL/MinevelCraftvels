@@ -2,9 +2,11 @@ package org.randomlima.minevelcraftvels.Abilities;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.bukkit.GameMode;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -33,6 +35,15 @@ public class AbilityListener implements Listener {
 
         if (handler != null) {
             handler.onUse(player, ability);
+        }
+    }
+    @EventHandler
+    public void onDeath(EntityDeathEvent event){
+        LivingEntity entity = event.getEntity();
+        Player killer = event.getEntity().getKiller();
+        if(killer != null){
+            Player player = killer;
+            killer.playSound(player, "damage.ko", 100, 1);
         }
     }
     @EventHandler

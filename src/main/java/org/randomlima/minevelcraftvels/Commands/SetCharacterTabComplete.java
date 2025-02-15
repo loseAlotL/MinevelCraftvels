@@ -19,7 +19,7 @@ public class SetCharacterTabComplete implements TabCompleter {
             suggestions.add("none");
             for (CharacterList character : CharacterList.values()) {
                 if (character.name().toLowerCase().startsWith(input)) {
-                    suggestions.add(character.name().toLowerCase());
+                    suggestions.add(character.name().toUpperCase());
                 }
             }
         }

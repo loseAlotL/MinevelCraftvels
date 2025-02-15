@@ -1,9 +1,9 @@
-package org.randomlima.minevelcraftvels.Characters.AdamWarlock;
+package org.randomlima.minevelcraftvels.Characters.ScarletWitch;
 
 import org.bukkit.entity.Player;
 import org.randomlima.minevelcraftvels.Characters.CharacterInterface;
 
-public class AdamWarlockCharacter implements CharacterInterface {
+public class ScarletWitchCharacter implements CharacterInterface {
     @Override
     public void clearInventory(Player player) {
 
