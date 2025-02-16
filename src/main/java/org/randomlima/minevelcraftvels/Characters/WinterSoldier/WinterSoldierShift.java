@@ -1,6 +1,7 @@
 package org.randomlima.minevelcraftvels.Characters.WinterSoldier;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -30,14 +31,22 @@ public class WinterSoldierShift {
         new BukkitRunnable() {
             @Override
             public void run() {
-                // Launch player
                 player.setVelocity(new Vector(0,0,0));
-                player.setVelocity(player.getVelocity().setY(1)); // Adjust upward force as needed
+                player.playSound(player, "damage.body",1,1);
+                for(Entity e : player.getNearbyEntities(1.5,1.5,1.5)){
+                    if(e instanceof LivingEntity){
+                        LivingEntity target = (LivingEntity) e;
+                        target.damage(10);
+                        target.setKiller(player);
+                        target.setVelocity(e.getVelocity().setY(1));
+                    }
+                }
+                player.setVelocity(player.getVelocity().setY(1));
             }
         }.runTaskLater(minevelCraftvels, 10L);
     }
     private void damageEntity(LivingEntity entity) {
-        int damage = 10; // Adjust base damage as needed
-        entity.damage(damage); // Apply damage
+        int damage = 10;
+        entity.damage(damage);
     }
 }

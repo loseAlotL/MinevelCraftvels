@@ -2,12 +2,15 @@ package org.randomlima.minevelcraftvels.Abilities;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.randomlima.minevelcraftvels.Characters.CharacterManager;
@@ -37,15 +40,7 @@ public class AbilityListener implements Listener {
             handler.onUse(player, ability);
         }
     }
-    @EventHandler
-    public void onDeath(EntityDeathEvent event){
-        LivingEntity entity = event.getEntity();
-        Player killer = event.getEntity().getKiller();
-        if(killer != null){
-            Player player = killer;
-            killer.playSound(player, "damage.ko", 100, 1);
-        }
-    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -135,6 +130,19 @@ public class AbilityListener implements Listener {
         event.setCancelled(true);
 
         triggerAbility(player, AbilityList.PRIMARY);
+    }
+    @EventHandler
+    public void onEntityHit(EntityDamageByEntityEvent event) {
+        if (event.getDamager() instanceof Player) {
+            Player player = (Player) event.getDamager();
+
+            // Check if player has the ability to trigger PRIMARY
+            if (!characterManager.hasTag(player)) return;
+
+            // Trigger ability on hit
+            player.sendMessage(Colorize.format(characterManager.getName(player) + " has used PRIMARY on an entity"));
+            triggerAbility(player, AbilityList.PRIMARY);
+        }
     }
     @EventHandler
     public void onPlayerRightClick(PlayerInteractEvent event) {

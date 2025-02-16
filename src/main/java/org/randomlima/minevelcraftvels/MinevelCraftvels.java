@@ -7,6 +7,7 @@ import org.randomlima.minevelcraftvels.Commands.DamageCommand;
 import org.randomlima.minevelcraftvels.Commands.HealCommand;
 import org.randomlima.minevelcraftvels.Commands.SetCharacterCommand;
 import org.randomlima.minevelcraftvels.Commands.SetCharacterTabComplete;
+import org.randomlima.minevelcraftvels.Utils.MiscListeners;
 import org.randomlima.minevelcraftvels.Utils.NametagManager;
 
 public final class MinevelCraftvels extends JavaPlugin {
@@ -17,8 +18,8 @@ public final class MinevelCraftvels extends JavaPlugin {
         // Plugin startup logic
         this.nametagManager = new NametagManager(this);
 
-        getServer().getPluginManager().registerEvents(new WinterSoldierUltimate(this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
+        getServer().getPluginManager().registerEvents(new MiscListeners(this), this);
 
         this.getCommand("setcharacter").setExecutor(new SetCharacterCommand(this));
         this.getCommand("setcharacter").setTabCompleter(new SetCharacterTabComplete());
