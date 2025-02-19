@@ -13,22 +13,21 @@ public class CooldownManager {
     private int currentCharges;
     private final BukkitScheduler scheduler;
     private boolean isTaskRunning = false;
-    private final ItemStack item;
+    private ItemStack item;
 
-    public CooldownManager(MinevelCraftvels plugin, double cooldown, int maxCharges, ItemStack item) {
+    public CooldownManager(MinevelCraftvels plugin, double cooldown, int maxCharges) {
         minevelCraftvels = plugin;
         this.cooldown = cooldown;
         this.maxCharges = maxCharges;
         this.currentCharges = maxCharges;
         this.scheduler = plugin.getServer().getScheduler();
-        this.item = item;
     }
 
-    public void useCharge() {
+    public void useCharge(ItemStack item) {
         if (currentCharges > 0) {
             currentCharges--;
             if (currentCharges == maxCharges - 1) {
-                startCooldown();
+                startCooldown(item);
             }
         }
     }
@@ -45,9 +44,10 @@ public class CooldownManager {
         return maxCharges;
     }
 
-    public void startCooldown() {
+    public void startCooldown(ItemStack item) {
         if (cooldownLeft > 0) return;
         this.cooldownLeft = cooldown;
+        this.item = item;
         run();
     }
 
@@ -77,7 +77,7 @@ public class CooldownManager {
 
     public boolean checkAndStartCooldown() {
         if (isOnCooldown()) return true;
-        startCooldown();
+        startCooldown(item);
         return false;
     }
 
@@ -97,29 +97,32 @@ public class CooldownManager {
                         cooldownLeft = cooldown;
                     }
                 }
-                stopTask();
                 task.cancel();
-                resetItemDurability();
+                endCDLogic();
             }
         }, 5L, 5L);
     }
 
     private void updateItemDurability() {
-        if (item == null) return;
+        if (item == null || cooldown <= 0) return;
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
-        short maxDurability = item.getType().getMaxDurability(); // Directly get the max durability
+        org.bukkit.inventory.meta.Damageable dMeta = (org.bukkit.inventory.meta.Damageable) meta;
+        short maxDurability = item.getType().getMaxDurability();
         int durability = (int) ((cooldownLeft / cooldown) * maxDurability);
-        meta.setCustomModelData(durability); // Simulating durability change
-        item.setItemMeta(meta);
+        durability = Math.max(0, Math.min(maxDurability, durability));
+        dMeta.setDamage(durability);
+        item.setItemMeta(dMeta);
+    }
+    private void endCDLogic(){
+        stopTask();
+        resetItemDurability();
     }
 
     private void resetItemDurability() {
-        if (item == null) return;
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
-        meta.setCustomModelData(0); // Reset durability when cooldown is complete
-        item.setItemMeta(meta);
+        org.bukkit.inventory.meta.Damageable dMeta = (org.bukkit.inventory.meta.Damageable) meta;
+        dMeta.resetDamage();
+        item.setItemMeta(dMeta);
     }
 
 }

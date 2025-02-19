@@ -51,13 +51,7 @@ public class BlockProjectile extends Projectile {
                     return;
                 }
 
-                // Remove the last BlockDisplays before spawning new ones
-                if (lastBlockDisplay1 != null) {
-                    lastBlockDisplay1.remove();
-                }
-                if (lastBlockDisplay2 != null) {
-                    lastBlockDisplay2.remove();
-                }
+
 
                 if (bulletDrop) {
                     Double dist = currentLoc.distance(start);
@@ -83,6 +77,13 @@ public class BlockProjectile extends Projectile {
                         new AxisAngle4f() // Right rotation
                 );
                 blockDisplay2.setTransformation(transformation2);
+
+                if (lastBlockDisplay1 != null) {
+                    lastBlockDisplay1.remove();
+                }
+                if (lastBlockDisplay2 != null) {
+                    lastBlockDisplay2.remove();
+                }
 
                 lastBlockDisplay1 = blockDisplay1;
                 lastBlockDisplay2 = blockDisplay2;
